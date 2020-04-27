@@ -12,8 +12,8 @@ public class Main {
         for (int i = 0; i < 9; i++) {
             puzzleState.add(i);
         }
-
         Collections.shuffle(puzzleState);
+
         var state = new State(puzzleState, puzzleState.indexOf(0));
 
         search.bfs(state, goal);

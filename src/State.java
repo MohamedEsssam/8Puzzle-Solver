@@ -9,7 +9,15 @@ public class State {
 
     @Override
     public String toString() {
-        return "Current State =" + gameState ;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < gameState.size(); i++) {
+            if (i % 3 == 0)
+                builder.append("\n");
+
+            builder.append(gameState.get(i).toString()+" ");
+        }
+
+        return "Current State =" + builder.toString().replace("0"," ") ;
     }
 
     public State(ArrayList<Integer> State, int indexOfBlank) {

@@ -74,6 +74,10 @@ public class SearchAlgorithms {
      * @param heuristics
      */
     public void aStar(State initialState, List<Integer> goal, String heuristics){
+        PriorityQueue<State> frontier = new PriorityQueue<>();
+        HashSet<String> visited = new HashSet<>();
+
+        frontier.add(initialState);
     }
 
     /**
