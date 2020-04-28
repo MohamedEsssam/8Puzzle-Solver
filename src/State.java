@@ -6,18 +6,24 @@ public class State {
     private ArrayList<Integer> gameState;
     ArrayList<State> children;
     private int indexOfBlank;
+    private int cost;
+    private int heuristicCost;
+    private int depth;
+    private Heuristics heuristics = new Heuristics();
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < gameState.size(); i++) {
             if (i % 3 == 0)
-                builder.append("\n");
+                builder.append("\n|");
 
             builder.append(gameState.get(i).toString()+" ");
+            if (i == 2 || i == 8 || i == 5)
+                builder.append("|");
         }
 
-        return "Current State =" + builder.toString().replace("0"," ") ;
+        return "Current State =\n--------" + builder.toString().replace("0"," ")+"\n--------";
     }
 
     public State(ArrayList<Integer> State, int indexOfBlank) {
@@ -39,6 +45,52 @@ public class State {
 
     public void setIndexOfBlank(int indexOfBlank) {
         this.indexOfBlank = indexOfBlank;
+    }
+
+    public ArrayList<State> getChildren() {
+        return children;
+    }
+
+    public void setChildren(ArrayList<State> children) {
+        this.children = children;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getHeuristicCost() {
+        return heuristicCost;
+    }
+
+    public void setHeuristicCost(int heuristicCost) {
+        this.heuristicCost = heuristicCost;
+    }
+
+    public void manhattanDistanceCost(){
+        this.heuristicCost = heuristics.manhattanDistance(this);
+    }
+
+    public void euclideanDistanceCost(){
+        this.heuristicCost = heuristics.euclideanDistance(this);
+    }
+
+    public int getCostToPath() { return this.cost + this.heuristicCost; }
+
+    public boolean isReachedGoal(List<Integer> goal){
+        return Arrays.equals(this.gameState.toArray(), goal.toArray());
     }
 
     /**
