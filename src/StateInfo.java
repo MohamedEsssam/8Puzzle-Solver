@@ -4,8 +4,8 @@ public class StateInfo {
     private int pathCost;
     private int nodesExpanded;
     private int searchDepth;
-    private long startTime;
-    private long endTime;
+    private double startTime;
+    private double endTime;
 
     @Override
     public String toString() {
@@ -13,7 +13,7 @@ public class StateInfo {
                 "\nCost Of Path = " + pathCost +
                 "\nNodes Expanded = " + nodesExpanded +
                 "\nSearch Depth = " + searchDepth +
-                "\nRunning Time = "+ TimeUnit.SECONDS.convert((this.endTime - this.startTime), TimeUnit.NANOSECONDS)+" Sec";
+                "\nRunning Time = "+ String.format("%.3f",(this.endTime - this.startTime)/1_000_000_000)+" Sec";
     }
 
     public int getPathCost() {
@@ -40,7 +40,7 @@ public class StateInfo {
         this.searchDepth = searchDepth;
     }
 
-    public long getStartTime() {
+    public double getStartTime() {
         return startTime;
     }
 
@@ -48,7 +48,7 @@ public class StateInfo {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public double getEndTime() {
         return endTime;
     }
 

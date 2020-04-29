@@ -1,10 +1,9 @@
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 import static java.lang.System.exit;
 
 public class BFS {
     private StateInfo stateInfo;
+    private int maxDepth = 0;
 
     /**
      * BFS using queue
@@ -28,12 +27,12 @@ public class BFS {
             visited.add(currentState.getGameState().toString());
 
             //update state info
-            stateInfo.setNodesExpanded(visited.size());
-            stateInfo.setPathCost(frontier.size());
-            stateInfo.setSearchDepth(frontier.size() - 1);
+            stateInfo.setNodesExpanded(visited.size()-1);
+            //stateInfo.setPathCost();
 
             if(currentState.isReachedGoal(goal)){
                 stateInfo.setEndTime(System.nanoTime());
+                stateInfo.setPathCost(currentState.costOfPath(currentState));
                 System.out.println(currentState);
                 System.out.println(stateInfo);
                 return;
@@ -41,8 +40,13 @@ public class BFS {
 
             System.out.println(currentState);
             for (var children : currentState.expand())
-                if(!visited.contains(children.getGameState().toString()))
+                if(!visited.contains(children.getGameState().toString())) {
                     frontier.add(children);
+                    if (children.getDepth() > this.maxDepth) {
+                        this.maxDepth = children.getDepth();
+                        stateInfo.setSearchDepth(this.maxDepth);
+                    }
+                }
         }
     }
 

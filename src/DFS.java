@@ -41,7 +41,7 @@ public class DFS {
             }
 
             for (var children : currentState.expand())
-                if (!visited.contains(children.getGameState().toString() ) && !stateStack.contains(children))
+                if (!visited.contains(children.getGameState().toString()))
                     stateStack.push(children);
         }
     }

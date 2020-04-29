@@ -24,8 +24,8 @@ public class Main {
         puzzleState.add(7);
         puzzleState.add(0);
 
-        var state = new State(puzzleState, puzzleState.indexOf(0));
+        var state = new State(puzzleState, puzzleState.indexOf(0),0, null);
 
-        search.search("BFS", state, goal,"");
+        search.search("A_STAR", state, goal,"euclidean");
     }
 }

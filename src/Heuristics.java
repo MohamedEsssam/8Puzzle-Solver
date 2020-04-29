@@ -1,12 +1,13 @@
 public class Heuristics {
-    private final int size = 3; 
+    private final int rowLen = 3, colLen = 3;
+
     public  int manhattanDistance(State currentState) {
         int cost = 0, index = 0;
         int xValue, yValue;
-        for (int i=0; i < size; i++)
-            for (int j = 0; j < size; j++) {
-                xValue = currentState.getGameState().get(index) / size;
-                yValue = currentState.getGameState().get(index) % size;
+        for (int i=0; i < rowLen; i++)
+            for (int j = 0; j < colLen; j++) {
+                xValue = currentState.getGameState().get(index) / rowLen;
+                yValue = currentState.getGameState().get(index) % colLen;
                 cost += Math.abs(i - xValue) + Math.abs(j - yValue);
                 index++;
             }
@@ -17,10 +18,10 @@ public class Heuristics {
     public  int euclideanDistance(State currentState) {
         int cost = 0, index = 0;
         int xValue, yValue;
-        for (int i=0; i < size; i++)
-            for (int j = 0; j < size; j++) {
-                xValue = currentState.getGameState().get(index) / size;
-                yValue = currentState.getGameState().get(index) % size;
+        for (int i=0; i < rowLen; i++)
+            for (int j = 0; j < colLen; j++) {
+                xValue = currentState.getGameState().get(index) / rowLen;
+                yValue = currentState.getGameState().get(index) % colLen;
                 cost += Math.sqrt(Math.pow(i - xValue, 2) + Math.pow(j - yValue, 2));
                 index++;
             }

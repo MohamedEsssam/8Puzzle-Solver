@@ -9,6 +9,7 @@ public class State {
     private int cost;
     private int heuristicCost;
     private int depth;
+    private State parent;
     private Heuristics heuristics = new Heuristics();
 
     @Override
@@ -26,9 +27,11 @@ public class State {
         return "Current State =\n--------" + builder.toString().replace("0"," ")+"\n--------";
     }
 
-    public State(ArrayList<Integer> State, int indexOfBlank) {
+    public State(ArrayList<Integer> State, int indexOfBlank, int depth, State parent) {
         this.gameState = State;
         this.indexOfBlank = indexOfBlank;
+        this.depth = depth;
+        this.parent = parent;
     }
 
     public ArrayList<Integer> getGameState() {
@@ -87,32 +90,47 @@ public class State {
         this.heuristicCost = heuristics.euclideanDistance(this);
     }
 
-    public int getCostToPath() { return this.cost + this.heuristicCost; }
+    public int getCostToPath() {
+        return this.cost + this.heuristicCost;
+    }
 
     public boolean isReachedGoal(List<Integer> goal){
         return Arrays.equals(this.gameState.toArray(), goal.toArray());
     }
 
+    public int costOfPath(State currentState) {
+        ArrayList<State> fullPath = new ArrayList<>();
+        fullPath.add(currentState);
+
+        var nextState = currentState.parent;
+        while (nextState != null) {
+            fullPath.add(nextState);
+            nextState = nextState.parent;
+        }
+        return fullPath.size() - 1;
+    }
+
     /**
-     * Return ArrayList of state based on the black move
+     * Return ArrayList of state based on the blank moves
      * there are four possible movement up, down, left, right
-     * so the max return state is 4 new state if it made 4 movement
+     * so the max return states is 4 new states if it made 4 movements
      * @return
      */
     public ArrayList<State> expand() {
         children = new ArrayList<>();
-
-        if (goLeft(this) != null)
-            children.add(goLeft(this));
-
-        if (goRight(this) != null)
-            children.add(goRight(this));
 
         if (goUp(this) != null)
             children.add(goUp(this));
 
         if (goDown(this) != null)
             children.add(goDown(this));
+
+        if (goLeft(this) != null)
+            children.add(goLeft(this));
+
+
+        if (goRight(this) != null)
+            children.add(goRight(this));
 
         return children;
     }
@@ -126,7 +144,7 @@ public class State {
         ArrayList<Integer> puzzleState = new ArrayList<>(currentState.getGameState());
         swap(puzzleState, target, currentState.indexOfBlank);
 
-        return new State(puzzleState, target);
+        return new State(puzzleState, target, depth++, this);
     }
 
     private State goRight(State currentState) {
@@ -139,7 +157,7 @@ public class State {
         ArrayList<Integer> puzzleState = new ArrayList<>(currentState.getGameState());
         swap(puzzleState, target, currentState.indexOfBlank);
 
-        return new State(puzzleState, target);
+        return new State(puzzleState, target, depth++, this);
     }
 
     private State goUp(State currentState) {
@@ -150,7 +168,7 @@ public class State {
         ArrayList<Integer> puzzleState = new ArrayList<>(currentState.getGameState());
         swap(puzzleState, target, currentState.indexOfBlank);
 
-        return new State(puzzleState, target);
+        return new State(puzzleState, target, depth++, this);
     }
 
     private State goDown(State currentState) {
@@ -161,7 +179,7 @@ public class State {
         ArrayList<Integer> puzzleState = new ArrayList<>(currentState.getGameState());
         swap(puzzleState, target, currentState.indexOfBlank);
 
-        return new State(puzzleState, target);
+        return new State(puzzleState, target, depth++, this);
     }
 
     private void swap(ArrayList<Integer> state, int firstIdx, int secondIdx){
