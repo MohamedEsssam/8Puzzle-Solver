@@ -1,18 +1,19 @@
+package sample;
+
 import java.util.*;
 import static java.lang.System.exit;
 
 public class BFS {
     private StateInfo stateInfo;
-    private int maxDepth = 0;
 
     /**
      * BFS using queue
      * @param initialState
      * @param goal
      */
-    public void bfs(State initialState, List<Integer> goal) {
+    public State bfs(State initialState, List<Integer> goal) {
         if (initialState == null)
-            return;
+            return null;
 
         stateInfo = new StateInfo();
 
@@ -26,28 +27,25 @@ public class BFS {
             var currentState = frontier.poll();
             visited.add(currentState.getGameState().toString());
 
-            //update state info
-            stateInfo.setNodesExpanded(visited.size()-1);
-            //stateInfo.setPathCost();
-
             if(currentState.isReachedGoal(goal)){
                 stateInfo.setEndTime(System.nanoTime());
-                stateInfo.setPathCost(currentState.costOfPath(currentState));
+                stateInfo.setNodesExpanded(visited.size()-1);
+                stateInfo.setPathCost(currentState.getPath().size());
+                stateInfo.setSearchDepth(currentState.getPath().size());
+                stateInfo.setMaxSearchDepth(currentState.getDepth());
                 System.out.println(currentState);
                 System.out.println(stateInfo);
-                return;
+                currentState.setStateInfo(stateInfo);
+                return currentState;
             }
 
             System.out.println(currentState);
             for (var children : currentState.expand())
-                if(!visited.contains(children.getGameState().toString())) {
+                if(!visited.contains(children.getGameState().toString()))
                     frontier.add(children);
-                    if (children.getDepth() > this.maxDepth) {
-                        this.maxDepth = children.getDepth();
-                        stateInfo.setSearchDepth(this.maxDepth);
-                    }
-                }
         }
+
+        return null;
     }
 
     /**

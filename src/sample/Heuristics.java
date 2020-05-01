@@ -1,3 +1,5 @@
+package sample;
+
 public class Heuristics {
     private final int rowLen = 3, colLen = 3;
 

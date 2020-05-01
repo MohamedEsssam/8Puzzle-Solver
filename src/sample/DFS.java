@@ -1,3 +1,5 @@
+package sample;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +14,9 @@ public class DFS {
      * @param initialState
      * @param goal
      */
-    public void dfs(State initialState, List<Integer> goal) {
+    public State dfs(State initialState, List<Integer> goal) {
         if (initialState == null)
-            return;
+            return null;
 
         stateInfo = new StateInfo();
 
@@ -29,21 +31,23 @@ public class DFS {
             System.out.println(currentState);
             visited.add(currentState.getGameState().toString());
 
-            //update state info
-            stateInfo.setNodesExpanded(visited.size());
-            stateInfo.setPathCost(stateStack.size());
-            stateInfo.setSearchDepth(stateStack.size() - 1);
-
             if (currentState.isReachedGoal(goal)) {
                 stateInfo.setEndTime(System.nanoTime());
+                stateInfo.setNodesExpanded(visited.size() - 1);
+                stateInfo.setPathCost(currentState.getPath().size());
+                stateInfo.setSearchDepth(currentState.getPath().size());
+                stateInfo.setMaxSearchDepth(currentState.getDepth());
                 System.out.println(stateInfo);
-                return;
+                currentState.setStateInfo(stateInfo);
+                return currentState;
             }
 
             for (var children : currentState.expand())
-                if (!visited.contains(children.getGameState().toString()))
+                if(!visited.contains(children.getGameState().toString()))
                     stateStack.push(children);
         }
+
+        return null;
     }
 
     /**

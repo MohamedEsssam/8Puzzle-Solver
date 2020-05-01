@@ -1,18 +1,23 @@
+package sample;
+
 import java.util.concurrent.TimeUnit;
 
 public class StateInfo {
     private int pathCost;
     private int nodesExpanded;
     private int searchDepth;
+    private int maxSearchDepth;
     private double startTime;
     private double endTime;
+    private String  runningTime;
 
     @Override
     public String toString() {
         return  "****************** GAME SOLVED ******************"+
-                "\nCost Of Path = " + pathCost +
                 "\nNodes Expanded = " + nodesExpanded +
+                "\nCost Of Path = " + pathCost +
                 "\nSearch Depth = " + searchDepth +
+                "\nMax Search Depth = " + maxSearchDepth +
                 "\nRunning Time = "+ String.format("%.3f",(this.endTime - this.startTime)/1_000_000_000)+" Sec";
     }
 
@@ -40,6 +45,14 @@ public class StateInfo {
         this.searchDepth = searchDepth;
     }
 
+    public int getMaxSearchDepth() {
+        return maxSearchDepth;
+    }
+
+    public void setMaxSearchDepth(int maxSearchDepth) {
+        this.maxSearchDepth = maxSearchDepth;
+    }
+
     public double getStartTime() {
         return startTime;
     }
@@ -55,4 +68,9 @@ public class StateInfo {
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
+
+    public String getRunningTime() {
+        return String.format("%.3f",(this.endTime - this.startTime)/1_000_000_000)+" Sec";
+    }
+
 }

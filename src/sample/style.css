@@ -1,0 +1,26 @@
+.button{
+    -fx-pref-width:90;
+    -fx-pref-height:20;
+    -fx-font-weight : bold;
+    -fx-text-fill: black ;
+    -fx-font-family:"Arial Narrow";
+}
+
+.button:hover{
+    -fx-cursor: hand;
+    -fx-background-color:rgb(17, 186, 216);
+}
+
+.label{
+    -fx-font-weight : bold;
+    -fx-text-fill: black ;
+    -fx-font-family:"Arial Narrow";
+}
+
+.choice-box {
+    -fx-pref-width: 220;
+    -fx-font-size: 10px;
+}
+.choice-box .context-menu {
+    -fx-pref-width: 220; /* Your width for the context menu background shown */
+}
