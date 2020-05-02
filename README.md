@@ -10,4 +10,3 @@
 
 ![Screenshot from 2020-05-01 14-03-27](https://user-images.githubusercontent.com/39191037/80804574-e1b07200-8bb5-11ea-885f-7b7aed6c8e7d.png)
 
-![gui](https://user-images.githubusercontent.com/39191037/80804841-acf0ea80-8bb6-11ea-8101-3259bc6246d0.Gif)

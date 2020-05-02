@@ -17,7 +17,7 @@ public class StateInfo {
                 "\nNodes Expanded = " + nodesExpanded +
                 "\nCost Of Path = " + pathCost +
                 "\nSearch Depth = " + searchDepth +
-                "\nMax Search Depth = " + maxSearchDepth +
+               // "\nMax Search Depth = " + maxSearchDepth +
                 "\nRunning Time = "+ String.format("%.3f",(this.endTime - this.startTime)/1_000_000_000)+" Sec";
     }
 

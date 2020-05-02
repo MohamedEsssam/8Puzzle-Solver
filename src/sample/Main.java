@@ -43,8 +43,8 @@ public class Main extends Application {
             StackPane stack = new StackPane();
             stack.getChildren().add(rectangle);
             puzzle.add(stack, (i%3), i/3);
-            puzzle.setHgap(20);
-            puzzle.setVgap(20);
+            puzzle.setHgap(3);
+            puzzle.setVgap(3);
         }
 
         TextField input = new TextField();
@@ -52,10 +52,10 @@ public class Main extends Application {
         TextField goal = new TextField();
         goal.setPromptText("Enter Goal");
 
-        ChoiceBox choseAlgorithm = new ChoiceBox<String>(
+        ChoiceBox chooseAlgorithm = new ChoiceBox<String>(
                 FXCollections.observableArrayList("BFS", "DFS", "A*"));
         Platform.runLater(() -> {
-            SkinBase<ChoiceBox<String>> skin = (SkinBase<ChoiceBox<String>>) choseAlgorithm.getSkin();
+            SkinBase<ChoiceBox<String>> skin = (SkinBase<ChoiceBox<String>>) chooseAlgorithm.getSkin();
             for (Node child : skin.getChildren()) {
                 if (child instanceof Label) {
                     Label label = (Label) child;
@@ -67,11 +67,11 @@ public class Main extends Application {
             }
         });
 
-        ChoiceBox choseHeuristic = new ChoiceBox<String>(
+        ChoiceBox chooseHeuristic = new ChoiceBox<String>(
                 FXCollections.observableArrayList("manhattan", "euclidean"));
-        choseHeuristic.setValue("");
+        chooseHeuristic.setValue("");
         Platform.runLater(() -> {
-            SkinBase<ChoiceBox<String>> skin = (SkinBase<ChoiceBox<String>>) choseHeuristic.getSkin();
+            SkinBase<ChoiceBox<String>> skin = (SkinBase<ChoiceBox<String>>) chooseHeuristic.getSkin();
             for (Node child : skin.getChildren()) {
                 if (child instanceof Label) {
                     Label label = (Label) child;
@@ -82,7 +82,7 @@ public class Main extends Application {
                 }
             }
         });
-        choseHeuristic.setDisable(true);
+        chooseHeuristic.setDisable(true);
 
         Label nodesExpand = new Label("Nodes Expand:");
         Label nodesExpandVal = new Label("0");
@@ -133,13 +133,18 @@ public class Main extends Application {
         });
 
         reset.setOnAction(event -> {
+            index = 0;
+            prev.setDisable(true);
+            next.setDisable(false);
             updatePuzzle(puzzle, path.get(0).getGameState());
         });
 
         run.setOnAction(event -> {
             index = 0;
-            String approach =  choseAlgorithm.getValue().toString().replace("A*","A_STAR");
-            String heuristic =  choseHeuristic.getValue().toString();
+            prev.setDisable(true);
+
+            String approach =  chooseAlgorithm.getValue().toString().replace("A*","A_STAR");
+            String heuristic =  chooseHeuristic.getValue().toString();
             ArrayList<Integer> puzzleState = toArr(input.getText());
             List<Integer> target = toArr(goal.getText());
 
@@ -151,20 +156,20 @@ public class Main extends Application {
             game = searchAlgorithms.search(approach, state, target, heuristic);
             path = game.getPath();
             nodesExpandVal.setText(Integer.toString(game.getStateInfo().getNodesExpanded()));
-            searchDepthVal.setText(Integer.toString(game.getStateInfo().getSearchDepth()-1));
-            pathCostVal.setText(Integer.toString(game.getStateInfo().getPathCost()-1));
+            searchDepthVal.setText(Integer.toString(game.getStateInfo().getSearchDepth()));
+            pathCostVal.setText(Integer.toString(game.getStateInfo().getPathCost()));
             runningTimeVal.setText(game.getStateInfo().getRunningTime());
         });
 
-        choseAlgorithm.setOnAction(actionEvent -> {
-            if (choseAlgorithm.getSelectionModel().getSelectedItem().equals("A*")) {
-                choseHeuristic.setDisable(false);
-                choseHeuristic.setValue("manhattan");
+        chooseAlgorithm.setOnAction(actionEvent -> {
+            if (chooseAlgorithm.getSelectionModel().getSelectedItem().equals("A*")) {
+                chooseHeuristic.setDisable(false);
+                chooseHeuristic.setValue("manhattan");
             }
 
             else {
-                choseHeuristic.setDisable(true);
-                choseHeuristic.setValue("");
+                chooseHeuristic.setDisable(true);
+                chooseHeuristic.setValue("");
             }
 
         });
@@ -174,9 +179,9 @@ public class Main extends Application {
         gridPane.add(goal, 1,4);
         gridPane.setVgap(8);
 
-        gridPane.add(choseAlgorithm, 0, 5);
+        gridPane.add(chooseAlgorithm, 0, 5);
         gridPane.setHgap(5);
-        gridPane.add(choseHeuristic, 1, 5);
+        gridPane.add(chooseHeuristic, 1, 5);
         gridPane.add(run, 2,5);
         gridPane.setVgap(8);
 
@@ -225,8 +230,8 @@ public class Main extends Application {
             StackPane stack = new StackPane();
             stack.getChildren().addAll(rectangle, label);
             gridPane.add(stack, (i%3), i/3);
-            gridPane.setHgap(20);
-            gridPane.setVgap(20);
+            gridPane.setHgap(3);
+            gridPane.setVgap(3);
         }
     }
 }
