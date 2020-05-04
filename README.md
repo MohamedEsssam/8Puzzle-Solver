@@ -8,7 +8,7 @@
 
 # GUI ScreenShot
 
-![Screenshot from 2020-05-02 04-22-56](https://user-images.githubusercontent.com/39191037/80852900-ae5cfa00-8c2c-11ea-935b-9882104d9a81.png)
+![Screenshot from 2020-05-04 10-58-28](https://user-images.githubusercontent.com/39191037/80951193-b1581600-8df7-11ea-8062-021396d88bff.png)
 
-![GUI](https://user-images.githubusercontent.com/39191037/80852870-5faf6000-8c2c-11ea-9883-3530a3554032.GIF)
+![GUI](https://user-images.githubusercontent.com/39191037/80951357-0d229f00-8df8-11ea-8448-625567049744.GIF)
 
