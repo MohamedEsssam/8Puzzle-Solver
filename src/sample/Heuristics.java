@@ -1,15 +1,16 @@
 package sample;
 
-public class Heuristics {
-    private final int rowLen = 3, colLen = 3;
+import java.util.ArrayList;
 
-    public  int manhattanDistance(State currentState) {
+public class Heuristics {
+    
+    public  int manhattanDistance(ArrayList<Integer> puzzle, int size) {
         int cost = 0, index = 0;
         int xValue, yValue;
-        for (int i=0; i < rowLen; i++)
-            for (int j = 0; j < colLen; j++) {
-                xValue = currentState.getGameState().get(index) / rowLen;
-                yValue = currentState.getGameState().get(index) % colLen;
+        for (int i=0; i < size; i++)
+            for (int j = 0; j < size; j++) {
+                xValue = puzzle.get(index) / size;
+                yValue = puzzle.get(index) % size;
                 cost += Math.abs(i - xValue) + Math.abs(j - yValue);
                 index++;
             }
@@ -17,13 +18,13 @@ public class Heuristics {
         return cost;
     }
 
-    public  int euclideanDistance(State currentState) {
+    public  int euclideanDistance(ArrayList<Integer> puzzle, int size) {
         int cost = 0, index = 0;
         int xValue, yValue;
-        for (int i=0; i < rowLen; i++)
-            for (int j = 0; j < colLen; j++) {
-                xValue = currentState.getGameState().get(index) / rowLen;
-                yValue = currentState.getGameState().get(index) % colLen;
+        for (int i=0; i < size; i++)
+            for (int j = 0; j < size; j++) {
+                xValue = puzzle.get(index) / size;
+                yValue = puzzle.get(index) % size;
                 cost += Math.sqrt(Math.pow(i - xValue, 2) + Math.pow(j - yValue, 2));
                 index++;
             }

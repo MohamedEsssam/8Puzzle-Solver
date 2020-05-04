@@ -20,7 +20,7 @@ public class Test {
         puzzleState.add(7);
         puzzleState.add(0);
 
-        var state = new State(puzzleState, puzzleState.indexOf(0),0, null);
+        var state = new State(puzzleState, puzzleState.indexOf(0),0, null, 3);
 
         var puzzle =search.search("A_STAR", state, goal,"manhattan");
     }
